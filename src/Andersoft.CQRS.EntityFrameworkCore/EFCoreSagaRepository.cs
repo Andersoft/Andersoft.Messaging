@@ -36,9 +36,12 @@ public class EFCoreSagaRepository<TState> : ISagaRepository<TState>
 
     public async ValueTask SaveAsync(TState state, CancellationToken ct = default)
     {
-        if (state.Version == 0)
+        var originalVersion = state.Version;
+
+        if (originalVersion == 0)
         {
-            // New saga — insert. EF Core will assign any store-generated values.
+            // New saga — initialize first persisted version before insert.
+            state.Version = 1;
             _context.Set<TState>().Add(state);
         }
         else
@@ -46,13 +49,13 @@ public class EFCoreSagaRepository<TState> : ISagaRepository<TState>
             // Existing saga — attach and mark modified.
             // Set the original Version for optimistic concurrency; EF Core
             // throws DbUpdateConcurrencyException if another process saved between load and save.
+            state.Version = originalVersion + 1;
             var entry = _context.Set<TState>().Attach(state);
             entry.State = EntityState.Modified;
-            entry.Property(nameof(SagaState.Version)).OriginalValue = state.Version;
+            entry.Property(nameof(SagaState.Version)).OriginalValue = originalVersion;
         }
 
         await _context.SaveChangesAsync(ct);
-        state.Version++;
     }
 
     public async ValueTask DeleteAsync(TState state, CancellationToken ct = default)
