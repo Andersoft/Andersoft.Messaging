@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Andersoft.CQRS.Abstractions;
+using Andersoft.CQRS.Abstractions.Sagas;
+using Andersoft.Messaging.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

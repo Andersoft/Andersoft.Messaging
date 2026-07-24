@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Andersoft.CQRS.Abstractions;
+namespace Andersoft.CQRS.Abstractions.Sagas;
 
 /// <summary>
 /// Persists and retrieves saga state. Events are correlated to an instance by a predicate over
@@ -13,7 +13,7 @@ namespace Andersoft.CQRS.Abstractions;
 /// </summary>
 /// <typeparam name="TState">The saga state type, derived from <see cref="SagaState"/>.</typeparam>
 public interface ISagaRepository<TState>
-    where TState : SagaState
+    where TState : ISagaState
 {
     /// <summary>
     /// Loads the single saga state matching <paramref name="match"/>.

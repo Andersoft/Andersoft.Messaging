@@ -4,10 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <RootNamespace>Andersoft.CQRS.EntityFrameworkCore</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Andersoft.CQRS\Andersoft.CQRS.csproj" />
+    <ProjectReference Include="..\Andersoft.Messaging.Core\Andersoft.Messaging.Core.csproj" />
+    <ProjectReference Include="..\Andersoft.Messaging\Andersoft.Messaging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

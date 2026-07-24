@@ -1,11 +1,13 @@
-using System;
+using Andersoft.CQRS.Abstractions.Sagas;
 
-namespace Andersoft.CQRS.Abstractions;
+namespace Andersoft.Messaging.Core;
+
+
 
 /// <summary>
 /// Base class for saga state persisted by <see cref="ISagaRepository{TState}"/>.
 /// </summary>
-public abstract class SagaState
+public abstract class SagaState : ISagaState
 {
     /// <summary>
     /// Surrogate primary key identifying this saga instance. Store-generated on insert;

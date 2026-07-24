@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
+using Andersoft.CQRS.Abstractions;
+using Andersoft.CQRS.Abstractions.Sagas;
 
-namespace Andersoft.CQRS.Abstractions;
+namespace Andersoft.Messaging.Core;
 
 /// <summary>
 /// Non-generic saga base registered in DI so <see cref="SagaDispatcher{TEvent}"/> can resolve all

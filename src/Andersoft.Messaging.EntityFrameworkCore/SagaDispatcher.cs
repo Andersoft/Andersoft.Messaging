@@ -2,21 +2,22 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Andersoft.CQRS.Abstractions;
+using Andersoft.Messaging.Core;
 
 namespace Andersoft.CQRS.EntityFrameworkCore;
 
 /// <summary>
 /// The coordinator handler for a saga event. Registered as an
-/// <see cref="Andersoft.CQRS.Abstractions.IMessageHandler{TEvent}"/> on the event's
+/// <see cref="Andersoft.Messaging.Abstractions.IMessageHandler{TEvent}"/> on the event's
 /// fan-out, it dispatches <typeparamref name="TEvent"/> to all registered
 /// <see cref="Saga"/> instances — auto-loading state, calling the saga handler, and
 /// auto-saving. The saga itself is never registered as a direct handler.
 /// </summary>
 public sealed class SagaDispatcher<TEvent> : Andersoft.CQRS.Abstractions.IMessageHandler<TEvent>
 {
-    private readonly IEnumerable<Andersoft.CQRS.Abstractions.Saga> _sagas;
+    private readonly IEnumerable<Saga> _sagas;
 
-    public SagaDispatcher(IEnumerable<Andersoft.CQRS.Abstractions.Saga> sagas)
+    public SagaDispatcher(IEnumerable<Saga> sagas)
     {
         _sagas = sagas;
     }

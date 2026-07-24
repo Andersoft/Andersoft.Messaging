@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Authors>Andersoft</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/Andersoft/Andersoft.CQRS</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Andersoft/Andersoft.Messaging</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 </Project>

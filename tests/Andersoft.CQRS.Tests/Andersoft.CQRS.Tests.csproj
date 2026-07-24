@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/Andersoft.CQRS.Generator/Andersoft.CQRS.Generator.csproj" />
+    <ProjectReference Include="..\..\src\Andersoft.Messaging.Generator\Andersoft.Messaging.Generator.csproj" />
   </ItemGroup>
 
 </Project>

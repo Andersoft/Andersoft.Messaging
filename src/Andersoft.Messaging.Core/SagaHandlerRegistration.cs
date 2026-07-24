@@ -1,11 +1,8 @@
-using System;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Andersoft.CQRS.Abstractions;
+namespace Andersoft.Messaging.Core;
 
-internal sealed class SagaHandlerRegistration
+public sealed class SagaHandlerRegistration
 {
     public bool IsStartedBy { get; set; }
 

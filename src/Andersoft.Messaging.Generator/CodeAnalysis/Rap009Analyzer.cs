@@ -1,9 +1,9 @@
+using System;
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using System;
 
-namespace Andersoft.CQRS.CodeAnalysis;
+namespace Andersoft.CQRS.Generator.CodeAnalysis;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class Rap009Analyzer : DiagnosticAnalyzer

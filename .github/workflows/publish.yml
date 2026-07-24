@@ -23,35 +23,38 @@ jobs:
 
       - name: Compute version
         run: |
-          VERSION="1.0.${{ github.run_number }}"
+          VERSION="0.0.${{ github.run_number }}"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Computed version: $VERSION"
 
       - name: Restore
         run: |
-          dotnet restore src/Andersoft.CQRS
-          dotnet restore src/Andersoft.CQRS.EntityFrameworkCore
+          dotnet restore src/Andersoft.Messaging
+          dotnet restore src/Andersoft.Messaging.Core
+          dotnet restore src/Andersoft.Messaging.EntityFrameworkCore
 
       - name: Build
         run: |
-          dotnet build src/Andersoft.CQRS --configuration Release --no-restore -p:Version=${{ env.VERSION }}
-          dotnet build src/Andersoft.CQRS.EntityFrameworkCore --configuration Release --no-restore -p:Version=${{ env.VERSION }}
+          dotnet build src/Andersoft.Messaging.Core --configuration Release --no-restore -p:Version=${{ env.VERSION }}
+          dotnet build src/Andersoft.Messaging --configuration Release --no-restore -p:Version=${{ env.VERSION }}
+          dotnet build src/Andersoft.Messaging.EntityFrameworkCore --configuration Release --no-restore -p:Version=${{ env.VERSION }}
 
       - name: Pack
         run: |
-          dotnet pack src/Andersoft.CQRS --configuration Release --no-build --output ./nupkgs -p:Version=${{ env.VERSION }}
-          dotnet pack src/Andersoft.CQRS.EntityFrameworkCore --configuration Release --no-build --output ./nupkgs -p:Version=${{ env.VERSION }}
+          dotnet pack src/Andersoft.Messaging.Core --configuration Release --no-build --output ./nupkgs -p:Version=${{ env.VERSION }}
+          dotnet pack src/Andersoft.Messaging --configuration Release --no-build --output ./nupkgs -p:Version=${{ env.VERSION }}
+          dotnet pack src/Andersoft.Messaging.EntityFrameworkCore --configuration Release --no-build --output ./nupkgs -p:Version=${{ env.VERSION }}
 
       - name: Publish to GitHub Packages
         run: >
-          dotnet nuget push ./nupkgs/Andersoft.CQRS.*.nupkg
+          dotnet nuget push ./nupkgs/Andersoft.Messaging.*.nupkg
           --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
           --api-key ${{ secrets.GITHUB_TOKEN }}
           --skip-duplicate
 
       - name: Publish to NuGet.org
         run: >
-          dotnet nuget push ./nupkgs/Andersoft.CQRS.*.nupkg
+          dotnet nuget push ./nupkgs/Andersoft.Messaging.*.nupkg
           --source https://api.nuget.org/v3/index.json
           --api-key ${{ secrets.NUGET_API_KEY }}
           --skip-duplicate

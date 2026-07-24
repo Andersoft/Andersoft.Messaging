@@ -1,9 +1,7 @@
-using System;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
+using Andersoft.CQRS.Abstractions.Sagas;
 
-namespace Andersoft.CQRS.Abstractions;
+namespace Andersoft.Messaging.Core;
 
 /// <summary>
 /// Scoped accessor that owns saga state for the current unit of work.
