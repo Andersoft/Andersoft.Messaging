@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
-using Andersoft.CQRS.Abstractions;
-using Andersoft.CQRS.Abstractions.Sagas;
+using Andersoft.Messaging.Abstractions;
+using Andersoft.Messaging.Abstractions.Sagas;
 
 namespace Andersoft.Messaging.Core;
 

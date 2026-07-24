@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Andersoft.CQRS.Generator.CodeAnalysis;
+namespace Andersoft.Messaging.Generator.CodeAnalysis;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class Rap009Analyzer : DiagnosticAnalyzer

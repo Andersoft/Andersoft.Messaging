@@ -1,8 +1,7 @@
-using Andersoft.CQRS.Abstractions;
 using Andersoft.Messaging.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace Andersoft.CQRS.EntityFrameworkCore;
+namespace Andersoft.Messaging.EntityFrameworkCore;
 
 public static class SagaModelBuilderExtensions
 {

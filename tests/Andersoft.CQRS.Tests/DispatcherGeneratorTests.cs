@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Xunit;
 using Andersoft.CQRS;
-using Andersoft.CQRS.Generator;
+using Andersoft.Messaging.Generator;
 
 namespace Andersoft.CQRS.Tests;
 
@@ -17,18 +17,18 @@ public sealed class DispatcherGeneratorTests
     // The library's public surface, reduced to what the generator keys off: two handler
     // arities, two interceptor arities, the pipeline delegates, and the saga base.
     private const string ContractsSource = @"
-namespace Andersoft.Messaging
+namespace Andersoft.Messaging.Abstractions
 {
     using System.Threading.Tasks;
     public delegate ValueTask<TResult> RequestHandlerDelegate<TResult>();
     public delegate ValueTask RequestHandlerDelegate();
 }
-namespace Andersoft.Messaging.Abstractions
+namespace Andersoft.Messaging.Abstractions.Abstractions
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Andersoft.Messaging;
+    using Andersoft.Messaging.Abstractions;
 
     public interface IMessageHandler<in TMessage> { ValueTask HandleAsync(TMessage message, CancellationToken ct = default); }
     public interface IMessageHandler<in TMessage, TResult> { ValueTask<TResult> HandleAsync(TMessage message, CancellationToken ct = default); }
@@ -49,7 +49,7 @@ namespace Andersoft.Messaging.Abstractions
         var source = ContractsSource + @"
 namespace TestApp
 {
-    using Andersoft.Messaging.Abstractions;
+    using Andersoft.Messaging.Abstractions.Abstractions;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -75,7 +75,7 @@ namespace TestApp
         var source = ContractsSource + @"
 namespace TestApp
 {
-    using Andersoft.Messaging.Abstractions;
+    using Andersoft.Messaging.Abstractions.Abstractions;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -101,7 +101,7 @@ namespace TestApp
         var source = ContractsSource + @"
 namespace TestApp
 {
-    using Andersoft.Messaging.Abstractions;
+    using Andersoft.Messaging.Abstractions.Abstractions;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -129,7 +129,7 @@ namespace TestApp
         var source = ContractsSource + @"
 namespace TestApp
 {
-    using Andersoft.Messaging.Abstractions;
+    using Andersoft.Messaging.Abstractions.Abstractions;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -165,8 +165,8 @@ namespace TestApp
         var source = ContractsSource + @"
 namespace TestApp
 {
-    using Andersoft.Messaging;
     using Andersoft.Messaging.Abstractions;
+    using Andersoft.Messaging.Abstractions.Abstractions;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -193,8 +193,8 @@ namespace TestApp
         var source = ContractsSource + @"
 namespace TestApp
 {
-    using Andersoft.Messaging;
     using Andersoft.Messaging.Abstractions;
+    using Andersoft.Messaging.Abstractions.Abstractions;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -221,8 +221,8 @@ namespace TestApp
         var source = ContractsSource + @"
 namespace TestApp
 {
-    using Andersoft.Messaging;
     using Andersoft.Messaging.Abstractions;
+    using Andersoft.Messaging.Abstractions.Abstractions;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -248,7 +248,7 @@ namespace TestApp
         var source = ContractsSource + @"
 namespace TestApp
 {
-    using Andersoft.Messaging.Abstractions;
+    using Andersoft.Messaging.Abstractions.Abstractions;
     using System;
     using System.Threading;
     using System.Threading.Tasks;
@@ -281,8 +281,8 @@ namespace TestApp
         // it eagerly would form a DI cycle), and its events flow through SagaDispatcher fan-out.
         Assert.Contains("services.AddSaga<TestApp.WorkflowSaga, TestApp.WorkflowState>(", generated.Registration);
         Assert.Contains("static (saga, sp) => saga.DispatcherFactory = () => sp.GetRequiredService<TypedDispatcher>());", generated.Registration);
-        Assert.Contains("new Andersoft.Messaging.EntityFrameworkCore.SagaDispatcher<TestApp.NodeStarted>(", generated.Registration);
-        Assert.Contains("new Andersoft.Messaging.EntityFrameworkCore.SagaDispatcher<TestApp.NodeCompleted>(", generated.Registration);
+        Assert.Contains("new Andersoft.Messaging.Abstractions.EntityFrameworkCore.SagaDispatcher<TestApp.NodeStarted>(", generated.Registration);
+        Assert.Contains("new Andersoft.Messaging.Abstractions.EntityFrameworkCore.SagaDispatcher<TestApp.NodeCompleted>(", generated.Registration);
 
         // Saga events appear as void messages in the dispatcher.
         Assert.Contains("InvokeAll(_nodeStartedHandlers, message, ct);", generated.Dispatcher);
@@ -300,8 +300,8 @@ namespace TestApp
         // the configure callback wires up, plus a lazy Dispatcher getter — no `partial` required on
         // the consumer's saga.
         Assert.Contains("public abstract class Saga<TSagaState> : Saga", generated.SagaBase);
-        Assert.Contains("global::System.Func<global::Andersoft.Messaging.TypedDispatcher> DispatcherFactory { get; internal set; }", generated.SagaBase);
-        Assert.Contains("global::Andersoft.Messaging.TypedDispatcher Dispatcher => DispatcherFactory();", generated.SagaBase);
+        Assert.Contains("global::System.Func<global::Andersoft.Messaging.Abstractions.TypedDispatcher> DispatcherFactory { get; internal set; }", generated.SagaBase);
+        Assert.Contains("global::Andersoft.Messaging.Abstractions.TypedDispatcher Dispatcher => DispatcherFactory();", generated.SagaBase);
     }
 
     // ── harness ────────────────────────────────────────────────────────

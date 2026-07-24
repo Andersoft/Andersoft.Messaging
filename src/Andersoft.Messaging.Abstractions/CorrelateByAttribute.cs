@@ -1,6 +1,6 @@
 using System;
 
-namespace Andersoft.CQRS.Abstractions;
+namespace Andersoft.Messaging.Abstractions;
 
 /// <summary>
 /// Marks a property on an event as the correlation identifier used to locate

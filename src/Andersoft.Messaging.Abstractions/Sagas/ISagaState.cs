@@ -1,6 +1,6 @@
 using System;
 
-namespace Andersoft.CQRS.Abstractions.Sagas;
+namespace Andersoft.Messaging.Abstractions.Sagas;
 
 public interface ISagaState
 {

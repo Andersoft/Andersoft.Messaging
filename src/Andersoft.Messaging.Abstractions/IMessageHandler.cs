@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Andersoft.CQRS.Abstractions;
+namespace Andersoft.Messaging.Abstractions;
 
 /// <summary>
 /// Handles a message that returns no value.

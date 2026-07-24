@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Andersoft.CQRS.Abstractions;
+namespace Andersoft.Messaging.Abstractions;
 
 /// <summary>Pipeline behaviour around a message that returns a <typeparamref name="TResult"/>.</summary>
 public interface IInterceptHandler<in TMessage, TResult>

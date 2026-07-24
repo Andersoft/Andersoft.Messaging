@@ -5,9 +5,9 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Andersoft.Messaging.Core/Andersoft.Messaging.Core.csproj" />
+    <Project Path="src\Andersoft.Messaging.Abstractions\Andersoft.Messaging.Abstractions.csproj" />
     <Project Path="src\Andersoft.Messaging.EntityFrameworkCore\Andersoft.Messaging.EntityFrameworkCore.csproj" />
     <Project Path="src\Andersoft.Messaging.Generator\Andersoft.Messaging.Generator.csproj" />
-    <Project Path="src\Andersoft.Messaging\Andersoft.Messaging.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Andersoft.CQRS.Tests/Andersoft.CQRS.Tests.csproj" />

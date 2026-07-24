@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Andersoft.CQRS.Abstractions.Sagas;
+namespace Andersoft.Messaging.Abstractions.Sagas;
 
 /// <summary>
 /// Persists and retrieves saga state. Events are correlated to an instance by a predicate over

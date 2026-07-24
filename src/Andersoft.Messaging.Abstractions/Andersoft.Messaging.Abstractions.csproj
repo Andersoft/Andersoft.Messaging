@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <IsAotCompatible>true</IsAotCompatible>
-    <RootNamespace>Andersoft.CQRS</RootNamespace>
+    <RootNamespace>Andersoft.Messaging.Abstractions</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Andersoft.CQRS.EntityFrameworkCore" />
+    <InternalsVisibleTo Include="Andersoft.Messaging.EntityFrameworkCore" />
   </ItemGroup>
 
 

@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
-using Andersoft.CQRS.Abstractions;
-using Andersoft.CQRS.Abstractions.Sagas;
+using Andersoft.Messaging.Abstractions.Sagas;
 using Andersoft.Messaging.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Andersoft.CQRS.EntityFrameworkCore;
+namespace Andersoft.Messaging.EntityFrameworkCore;
 
 public static class SagaServiceCollectionExtensions
 {

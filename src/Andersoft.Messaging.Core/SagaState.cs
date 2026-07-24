@@ -1,4 +1,4 @@
-using Andersoft.CQRS.Abstractions.Sagas;
+using Andersoft.Messaging.Abstractions.Sagas;
 
 namespace Andersoft.Messaging.Core;
 

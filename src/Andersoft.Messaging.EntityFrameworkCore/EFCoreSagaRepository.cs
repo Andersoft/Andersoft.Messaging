@@ -2,12 +2,11 @@ using System;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Andersoft.CQRS.Abstractions;
-using Andersoft.CQRS.Abstractions.Sagas;
+using Andersoft.Messaging.Abstractions.Sagas;
 using Andersoft.Messaging.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace Andersoft.CQRS.EntityFrameworkCore;
+namespace Andersoft.Messaging.EntityFrameworkCore;
 
 /// <summary>
 /// EF Core implementation of <see cref="ISagaRepository{TState}"/>.

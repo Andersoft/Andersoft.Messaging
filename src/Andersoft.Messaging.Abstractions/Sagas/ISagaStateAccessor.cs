@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Andersoft.CQRS.Abstractions.Sagas;
+namespace Andersoft.Messaging.Abstractions.Sagas;
 
 public interface ISagaStateAccessor
 {

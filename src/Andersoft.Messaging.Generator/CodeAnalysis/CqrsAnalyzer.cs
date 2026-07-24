@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Andersoft.CQRS.Generator.CodeAnalysis;
+namespace Andersoft.Messaging.Generator.CodeAnalysis;
 
 internal static partial class CqrsAnalyzer
 {
@@ -61,11 +61,11 @@ internal static partial class CqrsAnalyzer
 
         context.RegisterCompilationStartAction(startContext =>
         {
-            var iCommandSymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.ICommand`1");
-            var iQuerySymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.IQuery`1");
-            var iCommandHandlerSymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.ICommandHandler`2");
-            var iQueryHandlerSymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.IQueryHandler`2");
-            var iDomainEventHandlerSymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.IDomainEventHandler`1");
+            var iCommandSymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.Abstractions.ICommand`1");
+            var iQuerySymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.Abstractions.IQuery`1");
+            var iCommandHandlerSymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.Abstractions.ICommandHandler`2");
+            var iQueryHandlerSymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.Abstractions.IQueryHandler`2");
+            var iDomainEventHandlerSymbol = startContext.Compilation.GetTypeByMetadataName("Andersoft.Messaging.Abstractions.Abstractions.IDomainEventHandler`1");
 
             var cqrsMessages = new ConcurrentDictionary<INamedTypeSymbol, string>(SymbolEqualityComparer.Default);
             var cqrsHandlerCounts = new ConcurrentDictionary<INamedTypeSymbol, int>(SymbolEqualityComparer.Default);
