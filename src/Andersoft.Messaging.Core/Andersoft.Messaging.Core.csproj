@@ -6,17 +6,20 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Andersoft.Messaging.Generator\Andersoft.Messaging.Generator.csproj" />
-      <ProjectReference Include="..\Andersoft.Messaging.Abstractions\Andersoft.Messaging.Abstractions.csproj" />
-    </ItemGroup>
     <!--
       Build-order dependency on the source generator only. ReferenceOutputAssembly
-      is false so the generator is NOT a runtime reference, and it is deliberately
-      NOT registered as an Analyzer here — running it on this abstractions-only
+      is false so the generator is NOT a runtime reference. PrivateAssets=all
+      keeps it out of the generated NuGet dependency list, and it is deliberately
+      NOT registered as an Analyzer here - running it on this abstractions-only
       project would emit an empty HandlerRegistration/TypedDispatcher that collides
       with the consumer's generated types.
     -->
+    <ItemGroup>
+      <ProjectReference Include="..\Andersoft.Messaging.Generator\Andersoft.Messaging.Generator.csproj"
+                        ReferenceOutputAssembly="false"
+                        PrivateAssets="all" />
+      <ProjectReference Include="..\Andersoft.Messaging.Abstractions\Andersoft.Messaging.Abstractions.csproj" />
+    </ItemGroup>
 
     <!-- Bundle the source generator so consumers of this package receive it. -->
     <Target Name="AddGeneratorToPackage" BeforeTargets="GenerateNuspec">
