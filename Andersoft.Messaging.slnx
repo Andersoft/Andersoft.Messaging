@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/SolutionFolder/">
+    <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
   </Folder>
   <Folder Name="/src/">

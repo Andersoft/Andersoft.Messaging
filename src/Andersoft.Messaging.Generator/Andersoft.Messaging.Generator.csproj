@@ -13,7 +13,7 @@
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <IsPackable>false</IsPackable>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <RootNamespace>Andersoft.CQRS.Generator</RootNamespace>
+    <RootNamespace>Andersoft.Messaging.Generator</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
