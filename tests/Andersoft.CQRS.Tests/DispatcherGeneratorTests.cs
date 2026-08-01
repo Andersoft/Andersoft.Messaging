@@ -15,20 +15,17 @@ public sealed class DispatcherGeneratorTests
         .WithLanguageVersion(LanguageVersion.CSharp11);
 
     // The library's public surface, reduced to what the generator keys off: two handler
-    // arities, two interceptor arities, the pipeline delegates, and the saga base.
+    // arities, two interceptor arities, and the saga base.
     private const string ContractsSource = @"
 namespace Andersoft.Messaging.Abstractions
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    public delegate ValueTask<TResult> RequestHandlerDelegate<TResult>();
-    public delegate ValueTask RequestHandlerDelegate();
-
     public interface IMessageHandler<in TMessage> { ValueTask HandleAsync(TMessage message, CancellationToken ct = default); }
     public interface IMessageHandler<in TMessage, TResult> { ValueTask<TResult> HandleAsync(TMessage message, CancellationToken ct = default); }
-    public interface IInterceptHandler<in TMessage, TResult> { ValueTask<TResult> HandleAsync(TMessage message, RequestHandlerDelegate<TResult> next, CancellationToken ct); }
-    public interface IInterceptHandler<in TMessage> { ValueTask HandleAsync(TMessage message, RequestHandlerDelegate next, CancellationToken ct); }
+    public interface IInterceptHandler<in TMessage, TResult> { ValueTask<TResult> HandleAsync(TMessage message, Func<ValueTask<TResult>> next, CancellationToken ct); }
+    public interface IInterceptHandler<in TMessage> { ValueTask HandleAsync(TMessage message, Func<ValueTask> next, CancellationToken ct); }
 }
 namespace Andersoft.Messaging.Core
 {
@@ -175,13 +172,14 @@ namespace TestApp
     }
     public class LoggingInterceptor : IInterceptHandler<GetUserQuery, string>
     {
-        public ValueTask<string> HandleAsync(GetUserQuery m, RequestHandlerDelegate<string> next, CancellationToken ct) => next();
+        public ValueTask<string> HandleAsync(GetUserQuery m, Func<ValueTask<string>> next, CancellationToken ct) => next();
     }
 }";
         var generated = RunAndGet(source);
 
         Assert.Contains("_getUserQueryInterceptors", generated.Dispatcher);
         Assert.Contains("ChainInterceptors(_getUserQueryInterceptors", generated.Dispatcher);
+        Assert.Contains("System.Func<System.Threading.Tasks.ValueTask<TResult>> handler", generated.Dispatcher);
         Assert.Contains("services.AddScoped<IInterceptHandler<TestApp.GetUserQuery, string>, TestApp.LoggingInterceptor>();", generated.Registration);
     }
 
@@ -202,13 +200,14 @@ namespace TestApp
     }
     public class ValidateOrder : IInterceptHandler<CreateOrder>
     {
-        public ValueTask HandleAsync(CreateOrder m, RequestHandlerDelegate next, CancellationToken ct) => next();
+        public ValueTask HandleAsync(CreateOrder m, Func<ValueTask> next, CancellationToken ct) => next();
     }
 }";
         var generated = RunAndGet(source);
 
         Assert.Contains("ChainInterceptors(_createOrderInterceptors, message, () => InvokeAll(_createOrderHandlers", generated.Dispatcher);
         Assert.Contains("System.Collections.Generic.List<IInterceptHandler<TestApp.CreateOrder>>", generated.Dispatcher);
+        Assert.Contains("System.Func<System.Threading.Tasks.ValueTask> handler", generated.Dispatcher);
         Assert.Contains("services.AddScoped<IInterceptHandler<TestApp.CreateOrder>, TestApp.ValidateOrder>();", generated.Registration);
     }
 
@@ -229,7 +228,7 @@ namespace TestApp
     }
     public class LoggingInterceptor<TMessage, TResult> : IInterceptHandler<TMessage, TResult>
     {
-        public ValueTask<TResult> HandleAsync(TMessage m, RequestHandlerDelegate<TResult> next, CancellationToken ct) => next();
+        public ValueTask<TResult> HandleAsync(TMessage m, Func<ValueTask<TResult>> next, CancellationToken ct) => next();
     }
 }";
         var generated = RunAndGet(source);

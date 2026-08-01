@@ -437,10 +437,10 @@ namespace Andersoft.Messaging.Core
             sb.AppendLine("    private static System.Threading.Tasks.ValueTask<TResult> ChainInterceptors<TMessage, TResult>(");
             sb.AppendLine("        System.Collections.Generic.List<IInterceptHandler<TMessage, TResult>> interceptors,");
             sb.AppendLine("        TMessage message,");
-            sb.AppendLine("        RequestHandlerDelegate<TResult> handler,");
+            sb.AppendLine("        System.Func<System.Threading.Tasks.ValueTask<TResult>> handler,");
             sb.AppendLine("        System.Threading.CancellationToken ct)");
             sb.AppendLine("    {");
-            sb.AppendLine("        RequestHandlerDelegate<TResult> next = handler;");
+            sb.AppendLine("        System.Func<System.Threading.Tasks.ValueTask<TResult>> next = handler;");
             sb.AppendLine("        for (var i = interceptors.Count - 1; i >= 0; i--)");
             sb.AppendLine("        {");
             sb.AppendLine("            var interceptor = interceptors[i];");
@@ -457,10 +457,10 @@ namespace Andersoft.Messaging.Core
             sb.AppendLine("    private static System.Threading.Tasks.ValueTask ChainInterceptors<TMessage>(");
             sb.AppendLine("        System.Collections.Generic.List<IInterceptHandler<TMessage>> interceptors,");
             sb.AppendLine("        TMessage message,");
-            sb.AppendLine("        RequestHandlerDelegate handler,");
+            sb.AppendLine("        System.Func<System.Threading.Tasks.ValueTask> handler,");
             sb.AppendLine("        System.Threading.CancellationToken ct)");
             sb.AppendLine("    {");
-            sb.AppendLine("        RequestHandlerDelegate next = handler;");
+            sb.AppendLine("        System.Func<System.Threading.Tasks.ValueTask> next = handler;");
             sb.AppendLine("        for (var i = interceptors.Count - 1; i >= 0; i--)");
             sb.AppendLine("        {");
             sb.AppendLine("            var interceptor = interceptors[i];");
