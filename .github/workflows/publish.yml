@@ -45,15 +45,8 @@ jobs:
           dotnet pack src/Andersoft.Messaging.Abstractions --configuration Release --no-build --output ./nupkgs -p:Version=${{ env.VERSION }}
           dotnet pack src/Andersoft.Messaging.EntityFrameworkCore --configuration Release --no-build --output ./nupkgs -p:Version=${{ env.VERSION }}
 
-      - name: Publish to GitHub Packages
-        run: >
-          dotnet nuget push ./nupkgs/Andersoft.Messaging.*.nupkg
-          --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-          --api-key ${{ secrets.GITHUB_TOKEN }}
-          --skip-duplicate
-
       - name: Publish to private NuGet feed
         run: >
-          dotnet nuget push ./nupkgs/${{ matrix.project.name }}.*.nupkg
+          dotnet nuget push ./nupkgs/Andersoft.Messaging.*.nupkg
           --source https://nuget.pixelandcode.co/v3/index.json
           --skip-duplicate
