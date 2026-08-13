@@ -8,7 +8,7 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     permissions:
       packages: write
 
@@ -52,9 +52,8 @@ jobs:
           --api-key ${{ secrets.GITHUB_TOKEN }}
           --skip-duplicate
 
-      - name: Publish to NuGet.org
+      - name: Publish to private NuGet feed
         run: >
-          dotnet nuget push ./nupkgs/Andersoft.Messaging.*.nupkg
-          --source https://api.nuget.org/v3/index.json
-          --api-key ${{ secrets.NUGET_API_KEY }}
+          dotnet nuget push ./nupkgs/${{ matrix.project.name }}.*.nupkg
+          --source https://nuget.pixelandcode.co/v3/index.json
           --skip-duplicate
